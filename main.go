@@ -17,7 +17,7 @@ func main() {
 	app.Use(logger.New())
 
 	// Method:   GET
-	// Resource: http://localhost:8080
+	// Resource: http://localhost:8080123
 	app.Handle("GET", "/", func(ctx iris.Context) {
 		ctx.HTML("<h1>Welcome</h1>")
 	})
