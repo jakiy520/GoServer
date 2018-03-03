@@ -3,58 +3,40 @@ package main
 import (
 	"github.com/kataras/iris"
 
-	"github.com/betacraft/yaag/irisyaag"
-	"github.com/betacraft/yaag/yaag"
+	"github.com/kataras/iris/middleware/logger"
+	"github.com/kataras/iris/middleware/recover"
 )
-
-/*
-	go get github.com/betacraft/yaag/...
-*/
-
-type myXML struct {
-	Result string `xml:"result"`
-}
 
 func main() {
 	app := iris.New()
+	app.Logger().SetLevel("debug")
+	// Optionally, add two built'n handlers
+	// that can recover from any http-relative panics
+	// and log the requests to the terminal.
+	app.Use(recover.New())
+	app.Use(logger.New())
 
-	yaag.Init(&yaag.Config{ // <- IMPORTANT, init the middleware.
-		On:       true,
-		DocTitle: "Iris",
-		DocPath:  "apidoc.html",
-		BaseUrls: map[string]string{"Production": "123", "Staging": "123"},
-	})
-	app.Use(irisyaag.New()) // <- IMPORTANT, register the middleware.
-
-	//	cesss
-	app.Get("/json", func(ctx iris.Context) {
-		ctx.JSON(iris.Map{"result": "Hello World!"})
-	})
-
-	app.Get("/plain", func(ctx iris.Context) {
-		ctx.Text("Hello World!")
+	// Method:   GET
+	// Resource: http://localhost:8080
+	app.Handle("GET", "/", func(ctx iris.Context) {
+		ctx.HTML("<h1>Welcome</h1>")
 	})
 
-	app.Get("/xml", func(ctx iris.Context) {
-		ctx.XML(myXML{Result: "Hello World!"})
+	// same as app.Handle("GET", "/ping", [...])
+	// Method:   GET
+	// Resource: http://localhost:8080/ping
+	app.Get("/ping", func(ctx iris.Context) {
+		ctx.WriteString("pong")
 	})
 
-	app.Get("/complex", func(ctx iris.Context) {
-		value := ctx.URLParam("key")
-		ctx.JSON(iris.Map{"value": value})
+	// Method:   GET
+	// Resource: http://localhost:8080/hello
+	app.Get("/hello", func(ctx iris.Context) {
+		ctx.JSON(iris.Map{"message": "Hello Iris!"})
 	})
 
-	// Run our HTTP Server.
-	//
-	// Documentation of "yaag" doesn't note the follow, but in Iris we are careful on what
-	// we provide to you.
-	//
-	// Each incoming request results on re-generation and update of the "apidoc.html" file.
-	// Recommentation:
-	// Write tests that calls those handlers, save the generated "apidoc.html".
-	// Turn off the yaag middleware when in production.
-	//
-	// Example usage:
-	// Visit all paths and open the generated "apidoc.html" file to see the API's automated docs.
-	app.Run(iris.Addr(":8080"))
+	// http://localhost:8080
+	// http://localhost:8080/ping
+	// http://localhost:8080/hello
+	app.Run(iris.Addr(":8080"), iris.WithoutServerError(iris.ErrServerClosed))
 }
