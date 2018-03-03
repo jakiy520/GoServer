@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 )
-
+//	测试
 func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	fmt.Fprint(w, "Welcome!\n")
 }
