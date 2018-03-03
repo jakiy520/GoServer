@@ -17,7 +17,11 @@ func main() {
 	app.Use(logger.New())
 
 	// Method:   GET
+<<<<<<< HEAD
 	// Resource: http://localhost:8080ttt
+=======
+	// Resource: http://localhost:8080123
+>>>>>>> 9779f0fe1802ceca93316bb19bc3284aed605f63
 	app.Handle("GET", "/", func(ctx iris.Context) {
 		ctx.HTML("<h1>Welcome</h1>")
 	})
