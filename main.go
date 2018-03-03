@@ -1,50 +1,60 @@
 package main
 
 import (
-	"fmt"
-	"github.com/julienschmidt/httprouter"
-	"log"
-	"net/http"
+	"github.com/kataras/iris"
+
+	"github.com/betacraft/yaag/irisyaag"
+	"github.com/betacraft/yaag/yaag"
 )
-//	测试
-func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Fprint(w, "Welcome!\n")
-}
 
-func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	fmt.Fprintf(w, "hello, %s!\n", ps.ByName("name"))
-}
+/*
+	go get github.com/betacraft/yaag/...
+*/
 
-func getuser(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	uid := ps.ByName("uid")
-	fmt.Fprintf(w, "you are get user %s", uid)
-}
-
-func modifyuser(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	uid := ps.ByName("uid")
-	fmt.Fprintf(w, "you are modify user %s", uid)
-}
-
-func deleteuser(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	uid := ps.ByName("uid")
-	fmt.Fprintf(w, "you are delete user %s", uid)
-}
-
-func adduser(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	// uid := r.FormValue("uid")
-	uid := ps.ByName("uid")
-	fmt.Fprintf(w, "you are add user %s", uid)
+type myXML struct {
+	Result string `xml:"result"`
 }
 
 func main() {
-	router := httprouter.New()
-	router.GET("/", Index)
-	router.GET("/hello/:name", Hello)
+	app := iris.New()
 
-	router.GET("/user/:uid", getuser)
-	router.POST("/adduser/:uid", adduser)
-	router.DELETE("/deluser/:uid", deleteuser)
-	router.PUT("/moduser/:uid", modifyuser)
+	yaag.Init(&yaag.Config{ // <- IMPORTANT, init the middleware.
+		On:       true,
+		DocTitle: "Iris",
+		DocPath:  "apidoc.html",
+		BaseUrls: map[string]string{"Production": "123", "Staging": "123"},
+	})
+	app.Use(irisyaag.New()) // <- IMPORTANT, register the middleware.
 
-	log.Fatal(http.ListenAndServe(":8081", router))
+	//	cesss
+	app.Get("/json", func(ctx iris.Context) {
+		ctx.JSON(iris.Map{"result": "Hello World!"})
+	})
+
+	app.Get("/plain", func(ctx iris.Context) {
+		ctx.Text("Hello World!")
+	})
+
+	app.Get("/xml", func(ctx iris.Context) {
+		ctx.XML(myXML{Result: "Hello World!"})
+	})
+
+	app.Get("/complex", func(ctx iris.Context) {
+		value := ctx.URLParam("key")
+		ctx.JSON(iris.Map{"value": value})
+	})
+
+	// Run our HTTP Server.
+	//
+	// Documentation of "yaag" doesn't note the follow, but in Iris we are careful on what
+	// we provide to you.
+	//
+	// Each incoming request results on re-generation and update of the "apidoc.html" file.
+	// Recommentation:
+	// Write tests that calls those handlers, save the generated "apidoc.html".
+	// Turn off the yaag middleware when in production.
+	//
+	// Example usage:
+	// Visit all paths and open the generated "apidoc.html" file to see the API's automated docs.
+	app.Run(iris.Addr(":8080"))
 }
