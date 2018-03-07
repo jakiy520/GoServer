@@ -1,0 +1,34 @@
+{
+	"database": {
+		"Dialect"      : "mysql",
+		"Database"     : "rggy",
+		"User"	       : "root",
+		"Password"     : "123456",
+		"Charset"      : "utf8",
+		"SQLLog"       : false,      /*是否输出SQL*/
+		"Host"         : "127.0.0.1",/*数据库ip*/
+		"Port"         : 3306,       /*数据库端口*/
+		"URL"          : "",         /*数据库连接地址, 这个不用填，由程序来设置*/
+		"MaxIdleConns" : 5,          /*空闲时最大的连接数*/
+		"MaxOpenConns" : 10          /*最大的连接数*/
+	},
+	
+	"go": {
+		"Debug"               : true, /*是否是debug模式*/
+		"UploadImgDir"        : "", /*图片上传的目录*/
+		"ImgPath"             : "/upload/img",  /*上传后的图片请求地址前缀*/
+		"Port"                : 8012,       /*go监听的端口*/
+		"SessionID"           : "sid",      /*后台设置的session id*/
+		"MaxOrder"            : 10000,      /*最大的排序号*/
+		"MinOrder"            : 0,          /*最小的排序号*/
+		"PageSize"            : 20,         /*默认每页的条数*/
+		"MaxPageSize"         : 100,        /*每页最大的条数*/
+		"MinPageSize"         : 20,         /*每页最小的条数*/
+		"MaxNameLen"          : 100,        /*最大的名称长度*/
+		"MaxRemarkLen"        : 500,        /*最大的备注长度*/
+		"MaxContentLen"       : 10000,      /*最大的内容长度*/
+		"MaxProductCateCount" : 6,          /*商品最多的分类个数*/
+		"MaxProductImgCount"  : 6           /*商品最多的图片集个数*/
+	},
+	
+}
