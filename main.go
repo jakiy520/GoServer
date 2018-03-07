@@ -38,7 +38,7 @@ func main() {
 	// Migrate the schema1212
 	model.DB.AutoMigrate(&Product{})
 
-	// Create
+	// Create1212
 	model.DB.Create(&Product{Code: "L1212", Price: 1000})
 	// Read
 	var product Product
