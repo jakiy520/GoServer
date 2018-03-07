@@ -35,7 +35,7 @@ func init() {
 }
 
 func main() {
-	// Migrate the schema1212
+	// Migrate the schema
 	model.DB.AutoMigrate(&Product{})
 
 	// Create1212
