@@ -29,6 +29,6 @@
 		"MaxContentLen"       : 10000,      /*最大的内容长度*/
 		"MaxProductCateCount" : 6,          /*商品最多的分类个数*/
 		"MaxProductImgCount"  : 6           /*商品最多的图片集个数*/
-	},
+	}
 	
 }

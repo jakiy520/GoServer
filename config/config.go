@@ -88,6 +88,4 @@ func init() {
 	initJSON()
 	initDB()
 	initServer()
-	initWeAppConfig()
-	initAPI()
 }
