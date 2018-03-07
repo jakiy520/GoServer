@@ -35,10 +35,10 @@ func init() {
 }
 
 func main() {
-	// Migrate the schema
+	// Migrate the schema11111
 	model.DB.AutoMigrate(&Product{})
 
-	// Create1212
+	// Create11111
 	model.DB.Create(&Product{Code: "L1212", Price: 1000})
 	// Read
 	var product Product
