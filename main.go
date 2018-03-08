@@ -44,7 +44,6 @@ func main() {
 	var product Product
 	model.DB.First(&product, 1)                   // find product with id 1
 	model.DB.First(&product, "code = ?", "L1212") // find product with code l1212
-
 	model.DB.Delete(&product)
 
 	app := iris.New()
