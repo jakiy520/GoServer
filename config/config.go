@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"regexp"
-	"rggyServer/utils"
+	"rggy/utils"
 	"strings"
 )
 
@@ -84,8 +84,23 @@ func initServer() {
 	utils.SetStructByJSON(&ServerConfig, jsonData["go"].(map[string]interface{}))
 }
 
+// WeAppConfig 微信小程序相关配置
+type weAppConfig struct {
+	CodeToSessURL string
+	AppID         string
+	Secret        string
+}
+
+// WeAppConfig 微信小程序相关配置
+var WeAppConfig weAppConfig
+
+func initWeAppConfig() {
+	utils.SetStructByJSON(&WeAppConfig, jsonData["weApp"].(map[string]interface{}))
+}
+
 func init() {
 	initJSON()
 	initDB()
 	initServer()
+	initWeAppConfig()
 }

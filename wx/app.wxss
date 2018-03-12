@@ -1,5 +1,6 @@
 /**app.wxss**/
 .container {
+  background-color:oldlace;
   height: 100%;
   display: flex;
   flex-direction: column;

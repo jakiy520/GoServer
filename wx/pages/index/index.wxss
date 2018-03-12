@@ -4,13 +4,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: green;
+  background-color: darkslategrey;
 }
-
+.image{
+  width:100%;
+}
 .userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  margin-top: 20rpx;
   /* padding-left: 100rpx; */
   border-radius: 50%;
 }
@@ -22,5 +24,12 @@
 
 .usermotto {
   margin-top: 100px;
+  
+}
+.record{
+   margin: 20rpx;
+   /* background-color: white; */
+}
+.btn_share{
   
 }

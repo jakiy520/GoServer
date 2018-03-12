@@ -5,10 +5,13 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/kataras/iris"
+	"github.com/kataras/iris/sessions"
 	"os"
-	"rggyServer/config"
-	"rggyServer/model"
-	"rggyServer/route"
+	"rggy/config"
+	"rggy/controller/common"
+	"rggy/model"
+	"rggy/route"
+	"time"
 )
 
 type Product struct {
@@ -32,19 +35,16 @@ func init() {
 	db.DB().SetMaxOpenConns(config.DBConfig.MaxOpenConns)
 
 	model.DB = db
+
+	common.Sess = sessions.New(sessions.Config{
+		Cookie:  config.ServerConfig.SessionID,
+		Expires: time.Minute * 20,
+	})
 }
 
 func main() {
 	// Migrate the schema11111
 	model.DB.AutoMigrate(&Product{})
-
-	// Create11111
-	model.DB.Create(&Product{Code: "L1212", Price: 1000})
-	// Read
-	var product Product
-	model.DB.First(&product, 1)                   // find product with id 1
-	model.DB.First(&product, "code = ?", "L1212") // find product with code l1212
-	model.DB.Delete(&product)
 
 	app := iris.New()
 
