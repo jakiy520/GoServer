@@ -14,12 +14,6 @@ import (
 	"time"
 )
 
-type Product struct {
-	gorm.Model
-	Code  string
-	Price uint
-}
-
 func init() {
 	db, err := gorm.Open(config.DBConfig.Dialect, config.DBConfig.URL)
 	if err != nil {
@@ -40,15 +34,28 @@ func init() {
 		Cookie:  config.ServerConfig.SessionID,
 		Expires: time.Minute * 20,
 	})
+
+	initDBTables()
+}
+
+//	初始化数据库表结构
+func initDBTables() {
+	// Migrate the schema11111
+	model.DB.AutoMigrate(&model.User{})
+	model.DB.AutoMigrate(&model.Product{})
+	model.DB.AutoMigrate(&model.Image{})
+	model.DB.AutoMigrate(&model.Inventory{})
+	model.DB.AutoMigrate(&model.Category{})
+	model.DB.AutoMigrate(&model.Property{})
+	model.DB.AutoMigrate(&model.PropertyValue{})
 }
 
 func main() {
-	// Migrate the schema11111
-	model.DB.AutoMigrate(&Product{})
 
 	app := iris.New()
 
 	route.Route(app)
+	app.StaticWeb("/images", "./public/images")
 
 	app.OnErrorCode(iris.StatusNotFound, func(ctx iris.Context) {
 		ctx.Writef("404 not found here1111")

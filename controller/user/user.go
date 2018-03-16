@@ -75,6 +75,24 @@ func WeAppLogin(ctx iris.Context) {
 	})
 }
 
+//	如果用户在数据库中不存在，新增user表
+func newUser(weUser model.WeAppUser) {
+	var user model.User
+
+	if err := model.DB.First(&user, "open_id=?", weUser.OpenID).Error; err != nil {
+		//	如果没有找到
+		// fmt.Println(err)
+		user.OpenID = weUser.OpenID
+		user.Nickname = weUser.Nickname
+		if weUser.Gender == 1 {
+			user.Sex = true
+		} else {
+			user.Sex = false
+		}
+		model.DB.Create(&user)
+	}
+}
+
 // SetWeAppUserInfo 设置小程序用户加密信息
 func SetWeAppUserInfo(ctx iris.Context) {
 	SendErrJSON := common.SendErrJSON
@@ -107,6 +125,8 @@ func SetWeAppUserInfo(ctx iris.Context) {
 		SendErrJSON("error", ctx)
 		return
 	}
+	//	新增用户
+	newUser(user)
 
 	session.Set("weAppUser", user)
 	ctx.JSON(iris.Map{
