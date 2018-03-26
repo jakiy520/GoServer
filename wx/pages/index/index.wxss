@@ -6,6 +6,15 @@
   align-items: center;
   background-color: darkslategrey;
 }
+.userdiv {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: darkslategrey;
+  margin-left: 150rpx;
+}
+
 .image{
   width:100%;
 }
@@ -31,5 +40,5 @@
    /* background-color: white; */
 }
 .btn_share{
-  
+  margin-left: 0rpx;
 }

@@ -1,20 +1,22 @@
 <!--index.wxml-->
 <view class="container">
   <view class="userinfo">
-    <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000"/>
+    <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000" />
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-      <button class='btn_share' open-type="share">分享</button>
+      <view class='userdiv'>
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        <button class='btn_share' open-type="share">分享</button>
+      </view>
     </block>
   </view>
   <view class="record">test</view>
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
-  <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000"/>
-  <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000"/>
-  <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000"/>
-  <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000"/>
+  <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000" />
+  <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000" />
+  <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000" />
+  <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000" />
 </view>
