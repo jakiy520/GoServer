@@ -1,22 +1,12 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000" />
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <view class='userdiv'>
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-        <button class='btn_share' open-type="share">分享</button>
-      </view>
-    </block>
+  <view>
+    <image class="banner" data-src="http://rggy.godwork.cn/images/banner.png" src="http://rggy.godwork.cn/images/banner.png" />
   </view>
-  <view class="record">test</view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view>
+    <image class="banner1" data-src="http://rggy.godwork.cn/images/shop.png" src="http://rggy.godwork.cn/images/shop.png" />
   </view>
-  <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000" />
-  <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000" />
-  <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000" />
-  <image class="image" src="http://inews.gtimg.com/newsapp_bt/0/3016337434/1000" />
+  <view>
+    <image class="banner2" bindtap="imgYu" data-src="http://rggy.godwork.cn/images/des.jpg" src="http://rggy.godwork.cn/images/des.jpg" />
+  </view>
 </view>

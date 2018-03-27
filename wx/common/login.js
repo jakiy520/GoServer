@@ -19,13 +19,14 @@ var login = {
         },
         method: "POST",
         success: function (res) {
-          console.log(res)
+          resData.userInfo.userid = res.data.data.userid;
+          // console.log(resData.userInfo)
           app.globalData.userInfo = resData.userInfo;
           app.globalData.encryptedData = resData.encryptedData;
           app.globalData.iv = resData.iv;
           app.globalData.sid = resData.sid;
 
-          console.log(app.globalData.userInfo);
+          // console.log(app.globalData.userInfo);
           // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
           // 所以此处加入 callback 以防止这种情况
           if (app.userInfoReadyCallback) {
@@ -44,7 +45,7 @@ var login = {
               code: res.code
             },
             success: function (res) {
-              console.log(res)
+              // console.log(res)
               resData.sid = res.data.data.sid;
               jsCodeDone = true;
               jsCodeDone && userInfoDone && setUserInfo();

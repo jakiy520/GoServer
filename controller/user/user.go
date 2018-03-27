@@ -76,7 +76,7 @@ func WeAppLogin(ctx iris.Context) {
 }
 
 //	如果用户在数据库中不存在，新增user表
-func newUser(weUser model.WeAppUser) {
+func newUser(weUser model.WeAppUser) (userid uint) {
 	var user model.User
 
 	if err := model.DB.First(&user, "open_id=?", weUser.OpenID).Error; err != nil {
@@ -91,6 +91,8 @@ func newUser(weUser model.WeAppUser) {
 		}
 		model.DB.Create(&user)
 	}
+	userid = user.ID
+	return
 }
 
 // SetWeAppUserInfo 设置小程序用户加密信息
@@ -126,13 +128,13 @@ func SetWeAppUserInfo(ctx iris.Context) {
 		return
 	}
 	//	新增用户
-	newUser(user)
+	userid := newUser(user)
 
 	session.Set("weAppUser", user)
 	ctx.JSON(iris.Map{
 		"errNo": model.ErrorCode.SUCCESS,
 		"msg":   "success",
-		"data":  iris.Map{},
+		"data":  iris.Map{"userid": userid},
 	})
 	return
 }

@@ -1,44 +1,13 @@
 /**index.wxss**/
-.userinfo {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: darkslategrey;
+.banner{
+  width:750rpx;
+  height: 400rpx;
 }
-.userdiv {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: darkslategrey;
-  margin-left: 150rpx;
+.banner1{
+  width:750rpx;
+  height: 350rpx;
 }
-
-.image{
-  width:100%;
-}
-.userinfo-avatar {
-  width: 100rpx;
-  height: 100rpx;
-  margin-top: 20rpx;
-  /* padding-left: 100rpx; */
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: white;
-  margin: 20rpx;
-}
-
-.usermotto {
-  margin-top: 100px;
-  
-}
-.record{
-   margin: 20rpx;
-   /* background-color: white; */
-}
-.btn_share{
-  margin-left: 0rpx;
+.banner2{
+  width:750rpx;
+  height: 350rpx;
 }

@@ -63,5 +63,7 @@ func main() {
 	app.OnErrorCode(iris.StatusInternalServerError, func(ctx iris.Context) {
 		ctx.HTML("Message: <b>" + ctx.Values().GetString("message") + "</b>")
 	})
-	app.Run(iris.Addr(":8081"))
+	app.Run(iris.Addr(":8081"), iris.WithConfiguration(iris.Configuration{ // default configuration:
+		Charset: "UTF-8",
+	}))
 }

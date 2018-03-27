@@ -4,15 +4,18 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: app.globalData.userInfo,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: '../logs/logs'
+  //图片点击事件
+  imgYu: function (event) {
+    var src = event.currentTarget.dataset.src;//获取data-src
+    // var imgList = event.currentTarget.dataset.list;//获取data-list
+    //图片预览
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: [src] // 需要预览的图片http链接列表
     })
   },
   onLoad: function () {
@@ -31,21 +34,6 @@ Page({
         })
       }
     }
-  },
-  onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
-    return {
-      title: '水果砍价',
-      path: '/pages/index/index?id=123',
-      success: function (res) {
-        // 转发成功
-      },
-      fail: function (res) {
-        // 转发失败
-      }
-    }
   }
+  
 })

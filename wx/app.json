@@ -1,6 +1,8 @@
 {
   "pages":[
+    "pages/kanjia/kanjia",
     "pages/index/index",
+    "pages/my/my",
     "pages/logs/logs"
   ],
   "window":{
@@ -8,5 +10,28 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "black",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "public/images/icon_index_0.png",
+        "selectedIconPath": "public/images/icon_index_1.png"
+      },
+      {
+        "pagePath": "pages/kanjia/kanjia",
+        "iconPath": "public/images/icon_kanjia_0.png",
+        "selectedIconPath": "public/images/icon_kanjia_1.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "public/images/icon_my_0.png",
+        "selectedIconPath": "public/images/icon_my_1.png"
+      }
+    ]
   }
 }
