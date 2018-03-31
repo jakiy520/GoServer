@@ -6,16 +6,32 @@ import (
 	"github.com/kataras/iris"
 	"rggy/controller/common"
 	"rggy/model"
-	"time"
+	// "time"
 )
 
 //	获取当前的活动商品
 func GetKanjiaPro(ctx iris.Context) {
 	SendErrJSON := common.SendErrJSON
-	reqStartTime := time.Now()
+	// reqStartTime := time.Now()
+
+	//	获取砍价数据
+	kanjiaID, err := ctx.Params().GetInt("kanjiaID")
+	if err != nil {
+		SendErrJSON("参数有误", ctx)
+		return
+	}
+	var kanjia model.Kanjia
+	fmt.Println(kanjiaID)
+	if kanjiaID > 0 {
+		if err := model.DB.First(&kanjia, "id=?", kanjiaID).Error; err != nil {
+			SendErrJSON("不存在该砍价编号！", ctx)
+			return
+		}
+	}
+
+	//	获取商品基础信息
 	// id, err := ctx.ParamInt("id")
 	id := 1
-
 	var product model.Product
 
 	if model.DB.First(&product, id).Error != nil {
@@ -79,12 +95,14 @@ func GetKanjiaPro(ctx iris.Context) {
 		}
 	}
 	// fmt.Println(product)
-	fmt.Println("duration: ", time.Now().Sub(reqStartTime).Seconds())
+	// fmt.Println("duration: ", time.Now().Sub(reqStartTime).Seconds())
+
 	ctx.JSON(iris.Map{
 		"errNo": model.ErrorCode.SUCCESS,
 		"msg":   "success",
 		"data": iris.Map{
-			"product": product,
+			"product":    product,
+			"kanjiaInfo": kanjia,
 		},
 	})
 }

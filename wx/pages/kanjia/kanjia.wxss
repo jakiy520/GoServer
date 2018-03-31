@@ -12,7 +12,7 @@
   flex-direction: row;
   align-items: center;
   background-color: darkslategrey;
-  margin-left: 80rpx;
+  margin-left: 10rpx;
 }
 
 .image{
@@ -22,14 +22,14 @@
 .userinfo-avatar {
   width: 100rpx;
   height: 100rpx;
-  margin: 20rpx;
+  margin-top: 20rpx;
   /* padding-left: 100rpx; */
   border-radius: 50%;
 }
 
 .userinfo-nickname {
   color: white;
-  margin: 20rpx;
+  margin: 10rpx;
 }
 
 .usermotto {
@@ -43,4 +43,8 @@
 .btn{
   margin-left: 5rpx;
   margin-right: 5rpx;
+}
+.price{
+ margin: 10rpx;
+ color:white;
 }

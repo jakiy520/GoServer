@@ -5,9 +5,9 @@
 }
 .banner1{
   width:750rpx;
-  height: 350rpx;
+  height: 370rpx;
 }
 .banner2{
   width:750rpx;
-  height: 350rpx;
+  height: 320rpx;
 }

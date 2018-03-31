@@ -1,3 +1,5 @@
 {
-  "navigationBarTitleText": "砍价商品"
+  "navigationBarTitleText": "砍价商品",
+  "enablePullDownRefresh": true
+  
 }

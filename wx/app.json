@@ -6,13 +6,13 @@
     "pages/logs/logs"
   ],
   "window":{
-    "backgroundTextStyle":"light",
+    "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {
-    "color": "#7A7E83",
+    "color": "gray",
     "selectedColor": "black",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
@@ -20,17 +20,20 @@
       {
         "pagePath": "pages/index/index",
         "iconPath": "public/images/icon_index_0.png",
-        "selectedIconPath": "public/images/icon_index_1.png"
+        "selectedIconPath": "public/images/icon_index_1.png",
+        "text":"首页"
       },
       {
         "pagePath": "pages/kanjia/kanjia",
-        "iconPath": "public/images/icon_kanjia_0.png",
-        "selectedIconPath": "public/images/icon_kanjia_1.png"
+        "iconPath": "public/images/icon_kanjia_3.png",
+        "selectedIconPath": "public/images/icon_kanjia_4.png",
+        "text": "砍价"
       },
       {
         "pagePath": "pages/my/my",
         "iconPath": "public/images/icon_my_0.png",
-        "selectedIconPath": "public/images/icon_my_1.png"
+        "selectedIconPath": "public/images/icon_my_1.png",
+        "text": "我的"
       }
     ]
   }

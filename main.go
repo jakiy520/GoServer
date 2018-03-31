@@ -48,6 +48,7 @@ func initDBTables() {
 	model.DB.AutoMigrate(&model.Category{})
 	model.DB.AutoMigrate(&model.Property{})
 	model.DB.AutoMigrate(&model.PropertyValue{})
+	model.DB.AutoMigrate(&model.Kanjia{})
 }
 
 func main() {

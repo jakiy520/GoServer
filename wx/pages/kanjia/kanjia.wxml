@@ -1,20 +1,28 @@
 <!--index.wxml-->
 <view class="container">
-{{shareUserId}}
+  {{shareUserId}}
   <view class="userinfo">
-    <image class="image" src="{{ProInfo.image.url}}" />
+    <image class="image" src="{{proInfo.image.url}}" />
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
       <view class='userdiv'>
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-        <button class='btn' open-type="share" type="warn" size="mini">分享</button>
-        <button class='btn'  type="primary" size="mini">帮他砍</button>
+        <block wx:if="{{kanjiaID>0}}">
+          <image bindtap="bindViewTap" class="userinfo-avatar" src="{{kanjiaInfo.userAvatarUrl}}" background-size="cover"></image>
+          <text class="userinfo-nickname">{{kanjiaInfo.userNickName}} k</text>
+        </block>
+        <block wx:else>
+          <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+          <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        </block>
+        <button class='btn' bindtap="joinKanjia" type="warn" size="mini" wx:if="{{kanjiaID==0 || kanjiaInfo.userID!=userInfo.userid}}">参加</button>
+        <button class='btn' open-type="share" type="warn" size="mini" wx:if="{{kanjiaID>0&&kanjiaInfo.userID==userInfo.userid}}">分享</button>
+        <button class='btn' bindtap="bangtakan"  type="primary" size="mini" wx:if="{{kanjiaID>0&&kanjiaInfo.userID!=userInfo.userid}}">帮他砍</button>
       </view>
+      <view class="price">当前价格：￥{{proInfo.price}}</view>
     </block>
   </view>
-  <view class="record">{{ProInfo.detail}}</view>
-<block wx:for="{{ProInfo.images}}" wx:key="key">
-  <image class="image" src="{{item.url}}" />
-</block>
+  <view class="record">{{proInfo.detail}}</view>
+  <block wx:for="{{proInfo.images}}" wx:key="key">
+    <image class="image" src="{{item.url}}" />
+  </block>
 </view>

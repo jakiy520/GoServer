@@ -9,25 +9,29 @@ Page({
     userInfo: app.globalData.userInfo,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    ProInfo: "",
-    shareUserId: "",
+    proInfo: "",
+    kanjiaID: 5,//砍价的id 如果该id为0，说明来到该页面的还未参与砍价活动
+    kanjiaInfo: "",//被砍价的信息
   },
 
   getProInfo: function () {
     var that = this;
     wx.request({
-      url: "https://rggy.godwork.cn/api/getKanjiaPro",
+      url: "https://rggy.godwork.cn/api/getKanjiaPro/" + this.data.kanjiaID,
       success: function (res) {
+        // console.log(res)
         var product = res.data.data.product;
-        // console.log(product);
+        var kanjiainfo = res.data.data.kanjiaInfo;
+        console.log(product);
         product.image.url = config.static.imageDomain + product.image.url;
         for (var i = 0; i < product.images.length; i++) {
           var url = product.images[i].url;
           product.images[i].url = config.static.imageDomain + url;
         }
-        // console.log(product);
+        // console.log(kanjiainfo);
         that.setData({
-          ProInfo: res.data.data.product
+          proInfo: res.data.data.product,
+          kanjiaInfo: kanjiainfo
         })
 
       }
@@ -41,9 +45,12 @@ Page({
     })
   },
   onLoad: function (options) {
-    this.setData({
-      shareUserId: options.shareUserId
-    })
+    //  获取砍价ID参数
+    if (options.kanjiaID > 0) {
+      this.setData({
+        kanjiaID: options.kanjiaID
+      })
+    }
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -57,7 +64,7 @@ Page({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
-        console.log(this.data.userInfo)
+        // console.log(this.data.userInfo)
       }
     }
     //  获取商品信息
@@ -68,11 +75,11 @@ Page({
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
-      console.log(res.target)
+      // console.log(res.target)
     }
     return {
       title: '水果砍价',
-      path: '/pages/kanjia/kanjia?shareUserId=' + this.data.userInfo.userid,
+      path: '/pages/kanjia/kanjia?kanjiaID=' + this.data.kanjiaID,
       success: function (res) {
         // 转发成功
       },
@@ -81,15 +88,71 @@ Page({
       }
     }
   },
-  //图片点击事件
-  imgYu: function (event) {
-    var src = event.currentTarget.dataset.src;//获取data-src
-    console.log(src);
-    // var imgList = event.currentTarget.dataset.list;//获取data-list
-    //图片预览
-    wx.previewImage({
-      current: src, // 当前显示图片的http链接
-      urls: [src] // 需要预览的图片http链接列表
+
+  onPullDownRefresh: function () {
+    this.getProInfo();
+    // this.setData({
+    //   kanjiaID:0
+    // })
+    wx.stopPullDownRefresh()
+  },
+
+  //  参与砍价活动
+  joinKanjia: function () {
+    // console.log(this.data.userInfo)
+    var that = this;
+    wx.request({
+      url: "https://rggy.godwork.cn/api/JoinKanjia",
+      data: {
+        userID: this.data.userInfo.userid,
+        userNickName: this.data.userInfo.nickName,
+        userAvatarUrl: this.data.userInfo.avatarUrl,
+        productID: this.data.proInfo.id,
+      },
+      header: {
+        'content-type': 'application/json',
+      },
+      method: "POST",
+      success: function (res) {
+        // console.log(res)
+        that.setData({
+          kanjiaID: res.data.data.kanjiaID
+        })
+        that.getProInfo();
+      }
+    });
+  },
+
+  //  帮他砍
+  bangtakan: function () {
+    // console.log(this.data.userInfo)
+    var that = this;
+    wx.showToast({
+      title: '谢谢你帮忙砍了10元',
+      icon: 'success',
+      duration: 3000
     })
+    return;
+
+    wx.request({
+      url: "https://rggy.godwork.cn/api/Bangtakan",
+      data: {
+        userID: this.data.userInfo.userid,
+        userNickName: this.data.userInfo.nickName,
+        userAvatarUrl: this.data.userInfo.avatarUrl,
+        kanjiaID: this.data.kanjiaID,
+      },
+      header: {
+        'content-type': 'application/json',
+      },
+      method: "POST",
+      success: function (res) {
+        // console.log(res)
+        that.setData({
+          kanjiaID: res.data.data.kanjiaID
+        })
+        that.getProInfo();
+      }
+    });
   },
 })
