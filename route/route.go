@@ -18,5 +18,6 @@ func Route(app *iris.Application) {
 		router.Post("/setWeAppUser", user.SetWeAppUserInfo)
 		router.Get("/getKanjiaPro/:kanjiaID", product.GetKanjiaPro)
 		router.Post("/JoinKanjia", kanjia.JoinKanjia)
+		router.Post("/Bangtakan", kanjia.Bangtakan)
 	}
 }

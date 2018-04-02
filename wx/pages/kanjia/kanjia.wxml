@@ -18,7 +18,7 @@
         <button class='btn' open-type="share" type="warn" size="mini" wx:if="{{kanjiaID>0&&kanjiaInfo.userID==userInfo.userid}}">分享</button>
         <button class='btn' bindtap="bangtakan"  type="primary" size="mini" wx:if="{{kanjiaID>0&&kanjiaInfo.userID!=userInfo.userid}}">帮他砍</button>
       </view>
-      <view class="price">当前价格：￥{{proInfo.price}}</view>
+      <view class="price">现价：{{proInfo.price}}-{{kanjiaMoney}}=￥{{proInfo.price-kanjiaMoney}}</view>
     </block>
   </view>
   <view class="record">{{proInfo.detail}}</view>

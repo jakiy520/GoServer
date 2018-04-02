@@ -12,6 +12,7 @@ Page({
     proInfo: "",
     kanjiaID: 5,//砍价的id 如果该id为0，说明来到该页面的还未参与砍价活动
     kanjiaInfo: "",//被砍价的信息
+    kanjiaMoney: 0.00
   },
 
   getProInfo: function () {
@@ -22,7 +23,7 @@ Page({
         // console.log(res)
         var product = res.data.data.product;
         var kanjiainfo = res.data.data.kanjiaInfo;
-        console.log(product);
+        // console.log(product);
         product.image.url = config.static.imageDomain + product.image.url;
         for (var i = 0; i < product.images.length; i++) {
           var url = product.images[i].url;
@@ -30,7 +31,7 @@ Page({
         }
         // console.log(kanjiainfo);
         that.setData({
-          proInfo: res.data.data.product,
+          proInfo: product,
           kanjiaInfo: kanjiainfo
         })
 
@@ -127,13 +128,6 @@ Page({
   bangtakan: function () {
     // console.log(this.data.userInfo)
     var that = this;
-    wx.showToast({
-      title: '谢谢你帮忙砍了10元',
-      icon: 'success',
-      duration: 3000
-    })
-    return;
-
     wx.request({
       url: "https://rggy.godwork.cn/api/Bangtakan",
       data: {
@@ -141,17 +135,31 @@ Page({
         userNickName: this.data.userInfo.nickName,
         userAvatarUrl: this.data.userInfo.avatarUrl,
         kanjiaID: this.data.kanjiaID,
+        productID: this.data.proInfo.id,
       },
       header: {
         'content-type': 'application/json',
       },
       method: "POST",
       success: function (res) {
-        // console.log(res)
-        that.setData({
-          kanjiaID: res.data.data.kanjiaID
-        })
-        that.getProInfo();
+        console.log(res)
+        if (res.data.errNo == "1") {
+          wx.showToast({
+            title: res.data.msg,
+            icon: "none",
+            duration: 3000
+          })
+        }
+        if (res.data.errNo == "0") {
+          wx.showToast({
+            title: "砍价成功",
+            icon: "success",
+            duration: 2000
+          })
+          that.setData({
+            kanjiaMoney: res.data.data.AllKanjiaMoney
+          })
+        }
       }
     });
   },

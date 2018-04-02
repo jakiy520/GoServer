@@ -49,6 +49,7 @@ func initDBTables() {
 	model.DB.AutoMigrate(&model.Property{})
 	model.DB.AutoMigrate(&model.PropertyValue{})
 	model.DB.AutoMigrate(&model.Kanjia{})
+	model.DB.AutoMigrate(&model.KanjiaRecord{})
 }
 
 func main() {
@@ -67,4 +68,5 @@ func main() {
 	app.Run(iris.Addr(":8081"), iris.WithConfiguration(iris.Configuration{ // default configuration:
 		Charset: "UTF-8",
 	}))
+
 }
