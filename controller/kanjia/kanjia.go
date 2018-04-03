@@ -81,22 +81,13 @@ func Bangtakan(ctx iris.Context) {
 	modelKanjiaRecord.KanjiaPrice = _kanjiamoney
 
 	//	砍价总金额
-	allKanjiaMoney := 0.0
-	var listKanjiaRecord []model.KanjiaRecord
-	if err := model.DB.Where("kanjia_id=?", modelBangtakan.KanjiaID).Find(&listKanjiaRecord).Error; err == nil {
-		//	如果查询到砍价记录，则判断砍价金额
-		for i := 0; i < len(listKanjiaRecord); i++ {
-			kanjiaRecord := listKanjiaRecord[i]
-			allKanjiaMoney += kanjiaRecord.KanjiaPrice
-		}
+	allKanjiaMoney := GetKanjiaMoney(modelBangtakan.KanjiaID)
+	allKanjiaMoney += modelKanjiaRecord.KanjiaPrice
 
-		allKanjiaMoney += modelKanjiaRecord.KanjiaPrice
-
-		//	如果砍价金额大于最低值，则不允许再砍了
-		if allKanjiaMoney > modelProduct.KanjiaMaxMoneyAll {
-			SendErrJSON("不能再砍了", ctx)
-			return
-		}
+	//	如果砍价金额大于最低值，则不允许再砍了
+	if allKanjiaMoney > modelProduct.KanjiaMaxMoneyAll {
+		SendErrJSON("不能再砍了", ctx)
+		return
 	}
 
 	if modelProduct.Price-allKanjiaMoney <= 0 {
@@ -110,5 +101,19 @@ func Bangtakan(ctx iris.Context) {
 		"msg":   "success",
 		"data":  iris.Map{"AllKanjiaMoney": fmt.Sprintf("%.2f", allKanjiaMoney)},
 	})
+	return
+}
+
+//	获取已砍价价格
+func GetKanjiaMoney(kanjiaID uint) (allKanjiaMoney float64) {
+	var listKanjiaRecord []model.KanjiaRecord
+	if err := model.DB.Where("kanjia_id=?", kanjiaID).Find(&listKanjiaRecord).Error; err == nil {
+		//	如果查询到砍价记录，则判断砍价金额
+		for i := 0; i < len(listKanjiaRecord); i++ {
+			kanjiaRecord := listKanjiaRecord[i]
+			allKanjiaMoney += kanjiaRecord.KanjiaPrice
+		}
+
+	}
 	return
 }

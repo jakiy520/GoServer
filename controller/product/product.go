@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/kataras/iris"
+	"rggy/config"
 	"rggy/controller/common"
+	"rggy/controller/kanjia"
 	"rggy/model"
 	// "time"
 )
@@ -14,27 +16,45 @@ func GetKanjiaPro(ctx iris.Context) {
 	SendErrJSON := common.SendErrJSON
 	// reqStartTime := time.Now()
 
+	//	获取商品基础信息
+	// id, err := ctx.ParamInt("id")
+	productId := uint(config.KanjiaConfig.ProductID)
+	// var productId uint = 1
+	var product model.Product
+
+	//	获取用户id
+	userID, err := ctx.Params().GetInt("userID")
+	if err != nil {
+		SendErrJSON("用户id参数有误", ctx)
+		return
+	}
+
 	//	获取砍价数据
 	kanjiaID, err := ctx.Params().GetInt("kanjiaID")
 	if err != nil {
-		SendErrJSON("参数有误", ctx)
+		SendErrJSON("砍价id参数有误", ctx)
 		return
 	}
-	var kanjia model.Kanjia
-	fmt.Println(kanjiaID)
+	var modelKanjia model.Kanjia
+	var kanjiaMoney float64
+	//	如果没有传入 kanjiaID ， 根据用户id和商品id 获取该用户有没有参与该商品的砍价
+	if userID > 0 && kanjiaID == 0 {
+		if err := model.DB.First(&modelKanjia, "user_id=? and product_id=?", userID, productId).Error; err == nil {
+		}
+	}
 	if kanjiaID > 0 {
-		if err := model.DB.First(&kanjia, "id=?", kanjiaID).Error; err != nil {
+		if err := model.DB.First(&modelKanjia, "id=?", kanjiaID).Error; err != nil {
 			SendErrJSON("不存在该砍价编号！", ctx)
 			return
 		}
 	}
+	if modelKanjia.ID > 0 {
+		productId = modelKanjia.ProductID
+		kanjiaMoney = kanjia.GetKanjiaMoney(uint(kanjiaID))
+	}
 
-	//	获取商品基础信息
-	// id, err := ctx.ParamInt("id")
-	id := 1
-	var product model.Product
-
-	if model.DB.First(&product, id).Error != nil {
+	//	初始化商品信息
+	if model.DB.First(&product, productId).Error != nil {
 		SendErrJSON("错误的商品id", ctx)
 		return
 	}
@@ -101,8 +121,9 @@ func GetKanjiaPro(ctx iris.Context) {
 		"errNo": model.ErrorCode.SUCCESS,
 		"msg":   "success",
 		"data": iris.Map{
-			"product":    product,
-			"kanjiaInfo": kanjia,
+			"product":     product,
+			"kanjiaInfo":  modelKanjia,
+			"kanjiaMoney": fmt.Sprintf("%.2f", kanjiaMoney),
 		},
 	})
 }

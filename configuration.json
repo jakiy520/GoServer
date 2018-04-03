@@ -30,6 +30,10 @@
 		"MaxProductCateCount" : 6,          /*商品最多的分类个数*/
 		"MaxProductImgCount"  : 6           /*商品最多的图片集个数*/
 	},
+
+	"kanjia":{
+		"ProductID" : 1
+	},
 	
 	"weApp": {
 		/*code换取session_key*/

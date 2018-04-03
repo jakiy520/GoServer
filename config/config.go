@@ -98,9 +98,22 @@ func initWeAppConfig() {
 	utils.SetStructByJSON(&WeAppConfig, jsonData["weApp"].(map[string]interface{}))
 }
 
+//	砍价相关配置
+type kanjiaConfig struct {
+	ProductID int
+}
+
+var KanjiaConfig kanjiaConfig
+
+func initKanjiaConfig() {
+	utils.SetStructByJSON(&KanjiaConfig, jsonData["kanjia"].(map[string]interface{}))
+	// fmt.Println(jsonData["kanjia"].(map[string]interface{}))
+}
+
 func init() {
 	initJSON()
 	initDB()
 	initServer()
 	initWeAppConfig()
+	initKanjiaConfig()
 }

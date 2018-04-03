@@ -8,7 +8,7 @@
       <view class='userdiv'>
         <block wx:if="{{kanjiaID>0}}">
           <image bindtap="bindViewTap" class="userinfo-avatar" src="{{kanjiaInfo.userAvatarUrl}}" background-size="cover"></image>
-          <text class="userinfo-nickname">{{kanjiaInfo.userNickName}} k</text>
+          <text class="userinfo-nickname">{{kanjiaInfo.userNickName}}</text>
         </block>
         <block wx:else>
           <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
