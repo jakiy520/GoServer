@@ -1,50 +1,62 @@
 /**index.wxss**/
+
 .userinfo {
   width: 750rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: darkslategrey;
-}
-.userdiv {
-  width: 670rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: darkslategrey;
-  margin-left: 10rpx;
+  background-color: antiquewhite;
 }
 
-.image{
-  width:750rpx;
-  height: 500rpx;
+.userdiv {
+  width: 750rpx;
+  display: flex;
+  flex-direction: row;
+  /*水平居中*/
+  justify-content: center;
+  /* 垂直居中 */
+  align-items: center;
+  background-color: antiquewhite;
+  /* margin-left: 10rpx; */
+  padding: 20rpx 0 10rpx 0;
 }
+
+.image {
+  width: 750rpx;
+}
+
 .userinfo-avatar {
-  width: 100rpx;
-  height: 100rpx;
-  margin-top: 20rpx;
-  /* padding-left: 100rpx; */
+  width: 140rpx;
+  height: 140rpx;
+  /* margin: 20rpx 10rpx 0 10rpx; *//* padding-left: 100rpx; */
   border-radius: 50%;
 }
 
 .userinfo-nickname {
-  color: white;
+  color: green;
+  width: 400rpx;
   margin: 10rpx;
 }
 
-.usermotto {
-  margin-top: 100px;
-  
+.btnGroup {
+  margin-top: 20rpx;
 }
-.record{
-   margin: 20rpx;
-   /* background-color: white; */
+
+.record {
+  padding: 10rpx;
+  width: 100%;
+  background-color: white;
+  font-size: 32rpx;
+  line-height: 50rpx;
+  color: black;
 }
-.btn{
+
+.btn {
   margin-left: 5rpx;
   margin-right: 5rpx;
 }
-.price{
- margin: 10rpx;
- color:white;
+
+.price {
+  margin-bottom: 5rpx;
+  color: red;
 }

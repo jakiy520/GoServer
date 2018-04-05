@@ -1,9 +1,18 @@
 <!--logs.wxml-->
 <view class="container log-list">
-  <block wx:for="{{logs}}" wx:for-item="log">
+  <block wx:for="{{kanjiaRecords}}" wx:for-item="log" wx:key="key">
     <view class="log-item">
-      <image class="userinfo-avatar" src="{{log.avatarUrl}}" background-size="cover"></image>
-      <text >砍了：{{log.kanjiaMoney}}</text>
+      <image class="userinfo-avatar" src="{{log.userAvatarUrl}}" background-size="cover"></image>
+      <view class="log-item-info">
+        <view>
+          <text class='nickname'>{{log.userNickName}}</text> 砍了
+          <text class="price"> {{log.kanjiaPrice}} </text> 元
+        </view>
+        <view>
+          <text>{{log.createdAt}}</text>
+        </view>
+      </view>
+
     </view>
   </block>
 </view>

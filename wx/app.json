@@ -1,7 +1,7 @@
 {
   "pages":[
-    "pages/kanjia/kanjia",
     "pages/index/index",
+    "pages/kanjia/kanjia",
     "pages/logs/logs"
   ],
   "window":{
@@ -11,21 +11,21 @@
     "navigationBarTextStyle":"black"
   },
   "tabBar": {
-    "color": "gray",
-    "selectedColor": "black",
-    "borderStyle": "black",
+    "color": "#000000",
+    "selectedColor": "#d4237a",
+    "borderStyle": "#ffffff",
     "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/index/index",
         "iconPath": "public/images/icon_index_0.png",
-        "selectedIconPath": "public/images/icon_index_1.png",
+        "selectedIconPath": "public/images/icon_index_2.png",
         "text":"首页"
       },
       {
         "pagePath": "pages/kanjia/kanjia",
         "iconPath": "public/images/icon_kanjia_3.png",
-        "selectedIconPath": "public/images/icon_kanjia_4.png",
+        "selectedIconPath": "public/images/icon_kanjia_5.png",
         "text": "砍价"
       }
       

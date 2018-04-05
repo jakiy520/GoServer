@@ -70,15 +70,21 @@ func Bangtakan(ctx iris.Context) {
 
 	//	生成砍价记录
 	var modelKanjiaRecord model.KanjiaRecord
-	modelKanjiaRecord.KanjiaID = modelBangtakan.KanjiaID
-	modelKanjiaRecord.UserID = modelBangtakan.UserID
-	modelKanjiaRecord.UserNickName = modelBangtakan.UserNickName
-	modelKanjiaRecord.UserAvatarUrl = modelBangtakan.UserAvatarUrl
-	modelKanjiaRecord.ProductID = modelBangtakan.ProductID
-	//	获取一个随机的砍价金额，最大值不能超过数据库设置的砍价单次最大值
-	_kanjiamoney := (modelProduct.KanjiaMaxMoneyOne * rand.Float64())
-	_kanjiamoney, _ = strconv.ParseFloat(fmt.Sprintf("%.2f", _kanjiamoney), 64)
-	modelKanjiaRecord.KanjiaPrice = _kanjiamoney
+	//	判断该用户是否已经砍过了
+	if err := model.DB.First(&modelKanjiaRecord, "kanjia_id=? and user_id=?", modelBangtakan.KanjiaID, modelBangtakan.UserID).Error; err != nil {
+		modelKanjiaRecord.KanjiaID = modelBangtakan.KanjiaID
+		modelKanjiaRecord.UserID = modelBangtakan.UserID
+		modelKanjiaRecord.UserNickName = modelBangtakan.UserNickName
+		modelKanjiaRecord.UserAvatarUrl = modelBangtakan.UserAvatarUrl
+		modelKanjiaRecord.ProductID = modelBangtakan.ProductID
+		//	获取一个随机的砍价金额，最大值不能超过数据库设置的砍价单次最大值
+		_kanjiamoney := (modelProduct.KanjiaMaxMoneyOne * rand.Float64())
+		_kanjiamoney, _ = strconv.ParseFloat(fmt.Sprintf("%.2f", _kanjiamoney), 64)
+		modelKanjiaRecord.KanjiaPrice = _kanjiamoney
+	} else {
+		SendErrJSON("该用户已经砍过了", ctx)
+		return
+	}
 
 	//	砍价总金额
 	allKanjiaMoney := GetKanjiaMoney(modelBangtakan.KanjiaID)
@@ -115,5 +121,28 @@ func GetKanjiaMoney(kanjiaID uint) (allKanjiaMoney float64) {
 		}
 
 	}
+	return
+}
+
+//	获取砍价记录
+func GetKanjiaRecords(ctx iris.Context) {
+	SendErrJSON := common.SendErrJSON
+
+	kanjiaID, err := ctx.Params().GetInt("kanjiaID")
+	if err != nil {
+		SendErrJSON("砍价id参数有误", ctx)
+		return
+	}
+
+	//	获取砍价商品基本信息
+	var listKanjiaRecords []model.KanjiaRecord
+	if err := model.DB.Where("kanjia_id=?", kanjiaID).Find(&listKanjiaRecords).Error; err != nil {
+
+	}
+	ctx.JSON(iris.Map{
+		"errNo": model.ErrorCode.SUCCESS,
+		"msg":   "success",
+		"data":  iris.Map{"KanjiaRecords": listKanjiaRecords},
+	})
 	return
 }

@@ -5,7 +5,6 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: app.globalData.userInfo,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -16,7 +15,7 @@ Page({
   },
 
   getProInfo: function () {
-    console.log(this.data.userInfo)
+    // console.log(this.data.userInfo)
     var that = this;
     wx.request({
       url: "https://rggy.godwork.cn/api/getKanjiaPro/" + this.data.kanjiaID + "/" + that.data.userInfo.userid,
@@ -45,10 +44,10 @@ Page({
     });
   },
 
-  //事件处理函数
-  bindViewTap: function () {
+  // 查看砍价日志页面
+  showKanjiaRecords: function () {
     wx.navigateTo({
-      url: '/pages/logs/logs'
+      url: '/pages/logs/logs?kanjiaID=' + this.data.kanjiaID
     })
   },
   onLoad: function (options) {
@@ -88,7 +87,7 @@ Page({
       // console.log(res.target)
     }
     return {
-      title: '水果砍价',
+      title: '如果果业砍价',
       path: '/pages/kanjia/kanjia?kanjiaID=' + this.data.kanjiaID,
       success: function (res) {
         // 转发成功
