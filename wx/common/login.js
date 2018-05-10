@@ -19,6 +19,7 @@ var login = {
         },
         method: "POST",
         success: function (res) {
+          console.log(res)
           resData.userInfo.userid = res.data.data.userid;
           // console.log(resData.userInfo)
           app.globalData.userInfo = resData.userInfo;
@@ -45,7 +46,7 @@ var login = {
               code: res.code
             },
             success: function (res) {
-              // console.log(res)
+              console.log(res)
               resData.sid = res.data.data.sid;
               jsCodeDone = true;
               jsCodeDone && userInfoDone && setUserInfo();
