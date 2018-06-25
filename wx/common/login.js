@@ -19,7 +19,7 @@ var login = {
         },
         method: "POST",
         success: function (res) {
-          console.log(res)
+          //console.log(res)
           resData.userInfo.userid = res.data.data.userid;
           // console.log(resData.userInfo)
           app.globalData.userInfo = resData.userInfo;
@@ -39,6 +39,7 @@ var login = {
 
     wx.login({
       success: function (res) {
+        //console.log(res)
         if (res.code) {
           wx.request({
             url: config.api.weAppLogin,
@@ -46,7 +47,7 @@ var login = {
               code: res.code
             },
             success: function (res) {
-              console.log(res)
+              //console.log(res)
               resData.sid = res.data.data.sid;
               jsCodeDone = true;
               jsCodeDone && userInfoDone && setUserInfo();

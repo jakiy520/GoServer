@@ -2,7 +2,8 @@
   "pages":[
     "pages/index/index",
     "pages/kanjia/kanjia",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/my/my"
   ],
   "window":{
     "backgroundTextStyle":"dark",
@@ -27,8 +28,13 @@
         "iconPath": "public/images/icon_kanjia_3.png",
         "selectedIconPath": "public/images/icon_kanjia_5.png",
         "text": "砍价"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "public/images/icon_my_0.png",
+        "selectedIconPath": "public/images/icon_my_1.png",
+        "text": "砍价"
       }
-      
     ]
   }
 }

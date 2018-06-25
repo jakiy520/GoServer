@@ -20,7 +20,7 @@ Page({
     wx.request({
       url: "https://rggy.godwork.cn/api/getKanjiaPro/" + this.data.kanjiaID + "/" + that.data.userInfo.userid,
       success: function (res) {
-        // console.log(res)
+        console.log(res)
         var product = res.data.data.product;
         var kanjiainfo = res.data.data.kanjiaInfo;
         // console.log(product);
