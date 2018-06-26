@@ -68,6 +68,7 @@ func WeAppLogin(ctx iris.Context) {
 
 	resData := iris.Map{}
 	resData[config.ServerConfig.SessionID] = session.ID()
+	resData["openID"] = openID
 	ctx.JSON(iris.Map{
 		"errNo": model.ErrorCode.SUCCESS,
 		"msg":   "success",

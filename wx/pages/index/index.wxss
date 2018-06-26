@@ -1,7 +1,7 @@
 /**index.wxss**/
 .banner{
   width:750rpx;
-  height: 400rpx;
+  height: 1100rpx;
 }
 .banner1{
   width:750rpx;

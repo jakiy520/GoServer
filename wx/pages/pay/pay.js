@@ -4,14 +4,15 @@ const app = getApp()
 
 Page({
   data: {
+    motto: 'Hello World',
     userInfo: app.globalData.userInfo,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  // 查看砍价日志页面
-  showPayPage: function () {
+  //事件处理函数
+  bindViewTap: function () {
     wx.navigateTo({
-      url: '/pages/pay/pay'
+      url: '../logs/logs'
     })
   },
   onLoad: function () {
