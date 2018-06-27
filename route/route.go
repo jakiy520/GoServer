@@ -3,6 +3,7 @@ package route
 import (
 	"github.com/kataras/iris"
 	"rggy/controller/kanjia"
+	"rggy/controller/pay"
 	"rggy/controller/product"
 	"rggy/controller/user"
 )
