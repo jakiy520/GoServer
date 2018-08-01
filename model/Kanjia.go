@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-// Product 商品
+//Kanjia 商品
 type Kanjia struct {
 	ID            uint       `gorm:"primary_key" json:"id"`
 	CreatedAt     time.Time  `json:"createdAt"`
@@ -17,6 +17,7 @@ type Kanjia struct {
 
 }
 
+//KanjiaRecord 砍价记录
 type KanjiaRecord struct {
 	ID            uint       `gorm:"primary_key" json:"id"`
 	CreatedAt     time.Time  `json:"createdAt"`
