@@ -10,7 +10,7 @@ type Kanjia struct {
 	DeletedAt     *time.Time `sql:"index" json:"deletedAt"`
 	UserID        uint       `json:"userID"`
 	UserNickName  string     `json:"userNickName"`
-	UserAvatarUrl string     `json:"userAvatarUrl"`
+	UserAvatarURL string     `json:"userAvatarUrl"`
 	ProductID     uint       `json:"productID"`
 	KanjiaStatus  uint       `json:"kanjiaStatus"` //0待砍价 1是砍价完成
 	ValidCode     string     `json:"validCode"`    //   用于砍价活动最后验证用的编码,验证通过后砍价状态KanjiaStatus设置为1
@@ -26,7 +26,7 @@ type KanjiaRecord struct {
 	KanjiaID      uint       `json:"kanjiaID"`
 	UserID        uint       `json:"userID"`
 	UserNickName  string     `json:"userNickName"`
-	UserAvatarUrl string     `json:"userAvatarUrl"`
+	UserAvatarURL string     `json:"userAvatarUrl"`
 	ProductID     uint       `json:"productID"`
 	KanjiaPrice   float64    `json:"kanjiaPrice"`
 }
