@@ -41,7 +41,7 @@ func init() {
 
 //	初始化数据库表结构
 func initDBTables() {
-	// Migrate the schema1111111
+	// Migrate the schema1111111222
 	model.DB.AutoMigrate(&model.User{})
 	model.DB.AutoMigrate(&model.Product{})
 	model.DB.AutoMigrate(&model.Image{})
