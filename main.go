@@ -2,16 +2,17 @@ package main
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"github.com/kataras/iris"
-	"github.com/kataras/iris/sessions"
 	"os"
 	"rggy/config"
 	"rggy/controller/common"
 	"rggy/model"
 	"rggy/route"
 	"time"
+
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/kataras/iris"
+	"github.com/kataras/iris/sessions"
 )
 
 func init() {
@@ -40,7 +41,7 @@ func init() {
 
 //	初始化数据库表结构
 func initDBTables() {
-	// Migrate the schema11111
+	// Migrate the schema1111111
 	model.DB.AutoMigrate(&model.User{})
 	model.DB.AutoMigrate(&model.Product{})
 	model.DB.AutoMigrate(&model.Image{})
