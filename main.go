@@ -2,16 +2,17 @@ package main
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"github.com/kataras/iris"
-	"github.com/kataras/iris/sessions"
 	"os"
 	"rggy/config"
 	"rggy/controller/common"
 	"rggy/model"
 	"rggy/route"
 	"time"
+
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/kataras/iris"
+	"github.com/kataras/iris/sessions"
 )
 
 func init() {
