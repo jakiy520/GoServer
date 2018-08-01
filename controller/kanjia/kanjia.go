@@ -2,21 +2,22 @@ package kanjia
 
 import (
 	"fmt"
-	"github.com/kataras/iris"
 	"math/rand"
 	"rggy/controller/common"
 	"rggy/model"
 	"rggy/utils"
 	"strconv"
+
+	"github.com/kataras/iris"
 )
 
-// 参与砍价活动
+//JoinKanjia 参与砍价活动
 func JoinKanjia(ctx iris.Context) {
 	SendErrJSON := common.SendErrJSON
 	type ModelJoinKanjia struct {
 		UserID        uint   `json:"userID"`
 		UserNickName  string `json:"userNickName"`
-		UserAvatarUrl string `json:"userAvatarUrl"`
+		UserAvatarURL string `json:"userAvatarUrl"`
 		ProductID     uint   `json:"productID"`
 	}
 	var modelJoin ModelJoinKanjia
@@ -31,7 +32,7 @@ func JoinKanjia(ctx iris.Context) {
 		kanjia.UserID = modelJoin.UserID
 		kanjia.ProductID = modelJoin.ProductID
 		kanjia.UserNickName = modelJoin.UserNickName
-		kanjia.UserAvatarUrl = modelJoin.UserAvatarUrl
+		kanjia.UserAvatarURL = modelJoin.UserAvatarURL
 		kanjia.ValidCode = utils.GetRandValidCode(6)
 		model.DB.Create(&kanjia)
 	}
@@ -44,14 +45,14 @@ func JoinKanjia(ctx iris.Context) {
 	return
 }
 
-//	帮他砍价
+//Bangtakan 帮他砍价
 func Bangtakan(ctx iris.Context) {
 	SendErrJSON := common.SendErrJSON
 	type ModelBangtakan struct {
 		KanjiaID      uint   `json:"kanjiaID"`
 		UserID        uint   `json:"userID"`
 		UserNickName  string `json:"userNickName"`
-		UserAvatarUrl string `json:"userAvatarUrl"`
+		UserAvatarURL string `json:"userAvatarUrl"`
 		ProductID     uint   `json:"productID"`
 	}
 	var modelBangtakan ModelBangtakan
@@ -75,7 +76,7 @@ func Bangtakan(ctx iris.Context) {
 		modelKanjiaRecord.KanjiaID = modelBangtakan.KanjiaID
 		modelKanjiaRecord.UserID = modelBangtakan.UserID
 		modelKanjiaRecord.UserNickName = modelBangtakan.UserNickName
-		modelKanjiaRecord.UserAvatarUrl = modelBangtakan.UserAvatarUrl
+		modelKanjiaRecord.UserAvatarURL = modelBangtakan.UserAvatarURL
 		modelKanjiaRecord.ProductID = modelBangtakan.ProductID
 		//	获取一个随机的砍价金额，最大值不能超过数据库设置的砍价单次最大值
 		_kanjiamoney := (modelProduct.KanjiaMaxMoneyOne * rand.Float64())
@@ -110,7 +111,7 @@ func Bangtakan(ctx iris.Context) {
 	return
 }
 
-//	获取已砍价价格
+//GetKanjiaMoney 获取已砍价价格
 func GetKanjiaMoney(kanjiaID uint) (allKanjiaMoney float64) {
 	var listKanjiaRecord []model.KanjiaRecord
 	if err := model.DB.Where("kanjia_id=?", kanjiaID).Find(&listKanjiaRecord).Error; err == nil {
@@ -124,7 +125,7 @@ func GetKanjiaMoney(kanjiaID uint) (allKanjiaMoney float64) {
 	return
 }
 
-//	获取砍价记录
+//GetKanjiaRecords 获取砍价记录
 func GetKanjiaRecords(ctx iris.Context) {
 	SendErrJSON := common.SendErrJSON
 

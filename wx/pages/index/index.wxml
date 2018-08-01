@@ -1,12 +1,13 @@
 <!--index.wxml-->
 <view class="container">
   <view>
-    <image class="banner" bindtap="imgYu"  data-src="http://rggy.godwork.cn/images/pageIndex.jpg" src="http://rggy.godwork.cn/images/pageIndex.jpg" />
-  </view>
-  <!-- <view>
-    <image class="banner1" data-src="http://rggy.godwork.cn/images/shop.jpg" src="http://rggy.godwork.cn/images/shop.jpg" />
+    <image class="banner"  src="http://rggy.godwork.cn/images/banner_01.jpg" />
+    <image class="banner1" bindtap="imgYu" data-src="http://rggy.godwork.cn/images/erweima.jpg" src="http://rggy.godwork.cn/images/banner_02.jpg" />
   </view>
   <view>
+    
+  </view>
+  <!-- <view>
     <image class="banner2" bindtap="imgYu" data-src="http://rggy.godwork.cn/images/des.jpg" src="http://rggy.godwork.cn/images/des.jpg" />
   </view> -->
 </view>

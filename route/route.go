@@ -1,13 +1,16 @@
 package route
 
 import (
-	"github.com/kataras/iris"
 	"rggy/controller/kanjia"
-	"rggy/controller/pay"
+
+	"github.com/kataras/iris"
+
+	// "rggy/controller/pay"
 	"rggy/controller/product"
 	"rggy/controller/user"
 )
 
+//Route 1
 func Route(app *iris.Application) {
 
 	router := app.Party("/api")

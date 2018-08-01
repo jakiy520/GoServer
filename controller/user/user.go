@@ -3,13 +3,14 @@ package user
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/kataras/iris"
 	"net/http"
 	"rggy/config"
 	"rggy/controller/common"
 	"rggy/model"
 	"rggy/utils"
 	"strings"
+
+	"github.com/kataras/iris"
 )
 
 // WeAppLogin 微信小程序登录
