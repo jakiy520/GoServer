@@ -1,12 +1,16 @@
 <view>
   <view class="page-section page-section-gap">
-    <map
-      id="myMap"
-      style="width: 100%; height:700rpx;"
-      latitude="{{latitude}}"
-      longitude="{{longitude}}"
-      markers="{{markers}}"
-      show-location
-    ></map>
+    <map id="myMap" style="width: 100%; height:700rpx;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" show-location></map>
+  </view>
+  <view class="link">
+    <view class="phone">
+       <button type='link' bindtap='calling1'>联系电话：0576-88123056</button>
+    </view>
+    <view class="phone">
+      <button type='link' bindtap='calling2'>手机：13666804352</button>
+    </view>
+    <view class='address'>
+      地址：台州经济开发区荟萃苑小区商铺（半坦菜场红绿灯往北100米）
+    </view>
   </view>
 </view>
