@@ -20,7 +20,7 @@ Page({
     wx.request({
       url: "https://rggy.godwork.cn/api/getKanjiaPro/" + this.data.kanjiaID + "/" + that.data.userInfo.userid,
       success: function (res) {
-        console.log(res)
+        // console.log(res)
         var product = res.data.data.product;
         var kanjiainfo = res.data.data.kanjiaInfo;
         // console.log(product);
@@ -63,6 +63,7 @@ Page({
         hasUserInfo: true
       })
       //  获取商品信息
+      // console.log(1111);
       this.getProInfo();
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -75,6 +76,7 @@ Page({
         })
         // console.log(this.data.userInfo)
         //  获取商品信息
+        // console.log(1111222222);
         this.getProInfo();
       }
     }

@@ -4,7 +4,7 @@
   </view>
   <view class="link">
     <view class="phone">
-       <button type='link' bindtap='calling1'>联系电话：0576-88123056</button>
+      <button type='link' bindtap='calling1'>联系电话：0576-88123056</button>
     </view>
     <view class="phone">
       <button type='link' bindtap='calling2'>手机：13666804352</button>

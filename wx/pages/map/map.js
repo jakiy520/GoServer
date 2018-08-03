@@ -1,11 +1,11 @@
 Page({
   data: {
-    latitude: 28.643813,
-    longitude: 121.468869,
+    latitude: 28.637681,
+    longitude: 121.462591,
     markers: [{
       id: 1,
-      latitude: 28.643813,
-      longitude: 121.468869,
+      latitude: 28.637681,
+      longitude: 121.462591,
       name: '如果果业'
     }]
     

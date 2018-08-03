@@ -51,7 +51,7 @@ func GetKanjiaPro(ctx iris.Context) {
 	}
 	if modelKanjia.ID > 0 {
 		productID = modelKanjia.ProductID
-		kanjiaMoney = kanjia.GetKanjiaMoney(uint(kanjiaID))
+		kanjiaMoney = kanjia.GetKanjiaMoney(uint(modelKanjia.ID))
 	}
 
 	//	初始化商品信息
