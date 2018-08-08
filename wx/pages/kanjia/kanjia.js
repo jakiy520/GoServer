@@ -1,4 +1,5 @@
 var config = require("../../config/config.js");
+var login = require('../../common/login.js');
 //index.js
 //获取应用实例
 const app = getApp()
@@ -80,6 +81,18 @@ Page({
         this.getProInfo();
       }
     }
+  },
+
+  getUserInfo:function(){
+    app.userInfoReadyCallback = res => {
+      this.setData({
+        userInfo: res.userInfo,
+        hasUserInfo: true
+      })
+      this.getProInfo();
+    }
+    login.login(app);
+
   },
 
   //  分享按钮
