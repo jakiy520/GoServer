@@ -13,6 +13,8 @@ import (
 	"strings"
 	"time"
 
+	"rggy/controller/common"
+
 	"github.com/kataras/iris"
 )
 
@@ -22,23 +24,25 @@ const (
 	wxKey   = ""
 )
 
-//响应信息
+// WXPayResp 响应信息
 type WXPayResp struct {
-	Return_code string `xml:"return_code"`
-	Return_msg  string `xml:"return_msg"`
-	Nonce_str   string `xml:"nonce_str"`
-	Prepay_id   string `xml:"prepay_id"`
+	ReturnCode string
+	ReturnMsg  string
+	NonceStr   string
+	PrepayID   string
 }
 
-//微信支付
+// WxPay 微信支付
 func WxPay(ctx iris.Context) {
+	SendErrJSON := common.SendErrJSON
+
 	info := make(map[string]interface{}, 0)
 
 	fmt.Println("访问ip", ctx.RemoteAddr())
 	ip := ctx.RemoteAddr()
 
-	total_fee, _ := strconv.ParseFloat(ctx.Params().Get("total_fee"), 64) //单位 分
-	openId := ctx.Params().Get("openId")                                  //"oKYr_0GkE-Izt9N9Wn43sapI9Pqw"
+	totalFee, _ := strconv.ParseFloat(ctx.Params().Get("total_fee"), 64) //单位 分
+	openID := ctx.Params().Get("openId")                                 //"oKYr_0GkE-Izt9N9Wn43sapI9Pqw"
 	body := "费用说明"
 	//订单号
 	orderNo := ctx.Params().Get("orderNo") //"wx"+utils.ToStr(time.Now().Unix()) + string(utils.Krand(4, 0))
@@ -50,10 +54,10 @@ func WxPay(ctx iris.Context) {
 	reqMap["mch_id"] = wxMchID                                    //商户号
 	reqMap["nonce_str"] = nonceStr                                //随机数
 	reqMap["notify_url"] = "http://test.com.cn/weixinNotice.jspx" //通知地址
-	reqMap["openid"] = openId                                     //商户唯一标识 openid
+	reqMap["openid"] = openID                                     //商户唯一标识 openid
 	reqMap["out_trade_no"] = orderNo                              //订单号
 	reqMap["spbill_create_ip"] = ip                               //用户端ip   //订单生成的机器 IP
-	reqMap["total_fee"] = total_fee * 100                         //订单总金额，单位为分
+	reqMap["total_fee"] = totalFee * 100                          //订单总金额，单位为分
 	reqMap["trade_type"] = "JSAPI"                                //trade_type=JSAPI时（即公众号支付），此参数必传，此参数为微信用户在商户对应appid下的唯一标识
 	reqMap["sign"] = WxPayCalcSign(reqMap, wxKey)
 
@@ -70,12 +74,16 @@ func WxPay(ctx iris.Context) {
 	req.Header.Set("Content-Type", "text/xml;charset=utf-8")
 
 	resp, err := client.Do(req)
+	if err != nil {
+		SendErrJSON("获取预下单数据失败！", ctx)
+		return
+	}
 	defer resp.Body.Close()
 
 	body2, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		// handle error
-		fmt.Println("解析响应内容失败", err)
+		SendErrJSON("解析响应内容失败", ctx)
 		return
 	}
 	fmt.Println("响应数据", string(body2))
@@ -84,17 +92,16 @@ func WxPay(ctx iris.Context) {
 	err = xml.Unmarshal(body2, &resp1)
 	if err != nil {
 		panic(err)
-		return
 	}
 
 	// 返回预付单信息
-	if strings.ToUpper(resp1.Return_code) == "SUCCESS" {
+	if strings.ToUpper(resp1.ReturnCode) == "SUCCESS" {
 		fmt.Println("预支付申请成功")
 		// 再次签名
 		var resMap = make(map[string]interface{}, 0)
 		resMap["appId"] = wxAppID
-		resMap["nonceStr"] = resp1.Nonce_str                           //商品描述
-		resMap["package"] = "prepay_id=" + resp1.Prepay_id             //商户号
+		resMap["nonceStr"] = resp1.NonceStr                            //商品描述
+		resMap["package"] = "prepay_id=" + resp1.PrepayID              //商户号
 		resMap["signType"] = "MD5"                                     //签名类型
 		resMap["timeStamp"] = strconv.FormatInt(time.Now().Unix(), 10) //当前时间戳
 
